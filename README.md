@@ -27,6 +27,3 @@ Isaac Lab
 
 
 ### Use Isaac Lab Framework for Simple Locomotion
-
-## Git push token
-token: ghp_N2WT60R7lBpcDqz-3SsWEzAaKIvOUXP4KCP5S
