@@ -1,3 +1,9 @@
 [submodule "isaacsim-app-template"]
 	path = isaacsim-app-template
 	url = https://githubfast.com/isaac-sim/isaacsim-app-template.git
+[submodule "isaacsim"]
+	path = isaacsim
+	url = https://github.com/isaac-sim/IsaacSim.git
+[submodule "isaaclab"]
+	path = isaaclab
+	url = https://github.com/isaac-sim/IsaacLab.git
