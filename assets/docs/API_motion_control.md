@@ -221,3 +221,8 @@ def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
         ![alt text](2d_angle.png)
     - 我们还绘制了一张3D图表，将上述关节在三维空间中的运动轨迹描绘出来，让我们能直观地看到机器人的轨迹如何改变的。
         ![alt text](3d_traj.png)
+
+
+运行结果示例如视频演示：
+
+<video controls src="Isaac Sim 4.5.0 2025-07-03 16-46-43.mp4" title="Title"></video>
