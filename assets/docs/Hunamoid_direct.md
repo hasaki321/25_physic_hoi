@@ -191,3 +191,7 @@ cd isaaclab
 ```ps1
 ./isaaclab.bat -p scripts/reinforcement_learning/rl_games/play.py --task Isaac-H1-Direct-v0 --num_envs 64
 ```
+
+权重与日志位于 `src\humanoid\logs`, 最佳reward 值：
+![alt text](image-17.png)
+
