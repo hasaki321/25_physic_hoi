@@ -47,9 +47,23 @@ trainer = Trainer(strategy=DDPStrategy(process_group_backend="gloo"), ...)
 python protomotions\eval_agent.py +robot="smpl" +simulator="isaaclab" +motion_file="protomotion/data/motions/smpl_humanoid_walk.npy" +checkpoint="data/pretrained_models/masked_mimic/smpl/last.ckpt" +fabric.strategy.process_group_backend="gloo"
 ```
 
+接下来又说没有办法加载和下载这个背景和HDR文件：
+![alt text](image-20.png)
+
+我们可以从这里找到它获取资源的云端路径 `isaaclab\source\isaaclab\isaaclab\utils\assets.py`
+
+```python
+NUCLEUS_ASSET_ROOT_DIR = carb.settings.get_settings().get("/persistent/isaac/asset_root/cloud")
+
+NVIDIA_NUCLEUS_DIR = f"{NUCLEUS_ASSET_ROOT_DIR}/NVIDIA"
+ISAAC_NUCLEUS_DIR = f"{NUCLEUS_ASSET_ROOT_DIR}/Isaac"
+ISAACLAB_NUCLEUS_DIR = f"{ISAAC_NUCLEUS_DIR}/IsaacLab"
+```
+我们把项目中包含这几个DIR的资产全部下载到本地，然后直接用本地资产库的位置替换掉这个 `NUCLEUS_ASSET_ROOT_DIR` 即可， 这里我们下载到 `assets\nucles_assets`；
+
 #### Motion Tracker
 protomotion\data\pretrained_models\motion_tracker\smpl\README.md
 
 ```ps1
-..\isaaclab\isaaclab.bat -p protomotions\eval_agent.py +robot="smpl" +simulator="isaaclab" +motion_file="protomotion/data/motions/smpl_humanoid_walk.npy" +checkpoint="{data/pretrained_models/motion_tracker/smpl/last.ckpt"
+..\isaaclab\isaaclab.bat -p protomotions\eval_agent.py +robot="smpl" +simulator="isaaclab" +motion_file="protomotion/data/motions/smpl_humanoid_walk.npy" +checkpoint="{data/pretrained_models/motion_tracker/smpl/last.ckpt +fabric.strategy.process_group_backend="gloo""
 ```
