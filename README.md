@@ -34,7 +34,7 @@
         <p align="center">
             <video controls src="./assets/docs/images/Env_create&test/QQ202572-222923.mp4" width="600"></video>
             <br>
-            <em>手动搭建的场景运行测试</em>
+            <em>手动搭建的场景运行测试 （./assets/docs/images/Env_create&test/QQ202572-222923.mp4) </em>
         </p>
 
 *   **[x] 任务 1.3: 脚本化你的第一个世界 (Python API 编程)**
@@ -46,7 +46,7 @@
           <img src="./assets/docs/images/API_motion_control/3d_traj.png" width="25%">
           <video controls src="./assets/docs/images/API_motion_control/Isaac Sim 4.5.0 2025-07-03 16-46-43.mp4" width="600"></video>
           <br>
-          <em>机器人运动控制及数据可视化</em>
+          <em>机器人运动控制及数据可视化 （./assets/docs/images/API_motion_control/Isaac Sim 4.5.0 2025-07-03 16-46-43.mp4)</em>
         </p>
 
 ---
@@ -62,7 +62,7 @@
         <p align="center">
             <video controls src="./assets/docs/images/Hunamoid_direct/Isaac Sim 4.5.0 2025-07-02 19-55-27.mp4" width="600"></video>
             <br>
-            <em>官方Humanoid模型行走训练（80个epoch）</em>
+            <em>官方Humanoid模型行走训练（80个epoch）（./assets/docs/images/Hunamoid_direct/Isaac Sim 4.5.0 2025-07-02 19-55-27.mp4)</em>
         </p>
 
 *   **[x] 任务 2.2: 复现并微调宇树 H1 行走**
@@ -74,7 +74,7 @@
         <p align="center">
             <video controls src="./assets/docs/images/Unitree_rl_gym/MuJoCo _ h1 scene 2025-07-04 00-29-54.mp4" width="600"></video>
             <br>
-            <em>在IsaacGym中训练，MuJoCo中验证的H1行走策略</em>
+            <em>在IsaacGym中训练，MuJoCo中验证的H1行走策略 （./assets/docs/images/Unitree_rl_gym/MuJoCo _ h1 scene 2025-07-04 00-29-54.mp4）</em>
         </p>
 
 ---
@@ -89,7 +89,7 @@
         <p align="center">
             <video controls src="./assets/docs/images/Protomotion/Isaac Sim 4.5.0 2025-07-05 01-21-35.mp4" width="600"></video>
             <br>
-            <em>成功运行MaskedMimic预训练模型</em>
+            <em>成功运行MaskedMimic预训练模型 （./assets/docs/images/Protomotion/Isaac Sim 4.5.0 2025-07-05 01-21-35.mp4）</em>
         </p>
 
 *   **[-] 任务 3.2: 实现一个基础 HOI 任务：推箱子**
