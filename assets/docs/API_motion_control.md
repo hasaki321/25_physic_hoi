@@ -1,6 +1,8 @@
 ## Python API 交互
 
-本节我们将尝试调用 IsaacLab 的 python api 尝试与 IsaacSim 直接进行交互而非使用图形化GUI，参考以下教程：
+在熟悉了 GUI 操作后，我们开始学习使用 Isaac Lab 提供的 Python API。我们的目标是脱离图形界面，以编程方式自动化地完成场景搭建和机器人控制，这是后续进行强化学习训练的基础。
+
+我们将尝试调用 IsaacLab 的 python api 尝试与 IsaacSim 直接进行交互而非使用图形化GUI，参考以下教程：
 - 官网教程 https://isaac-sim.github.io/IsaacLab/main/source/tutorials/index.html
 - 中文译版 https://docs.robotsfan.com/isaaclab/source/tutorials/index.html
 
@@ -188,14 +190,6 @@ def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
 
 ### 练习：创建并尝试移动宇树H1机器人
 
-好的，没问题！这是一个非常好的想法，将代码和实践过程文档化是优秀工程师的必备习惯。
-
-以下是您要求的 Markdown 说明文档。
-
----
-
-### 练习：创建并尝试移动宇树H1机器人
-
 在这里我们的目标是使用 Isaac Lab 的 Python API 来创建一个包含宇树H1机器人的仿真环境，并编写一个简单的控制脚本，让机器人从初始姿态调整到一个预设的站立姿势。我们还将记录这个过程中的关键数据，并通过2D和3D图表来可视化机器人的运动。
 
 #### 实现思路
@@ -218,11 +212,11 @@ def run_simulator(sim: sim_utils.SimulationContext, scene: InteractiveScene):
 
 3.  **可视化**: 仿真循环结束后，我们利用 `matplotlib` 库来处理收集到的数据。
     - 我们绘制了一张2D图表，展示了几个关键关节（躯干、髋、踝）的角度是如何随着时间变化的。
-        ![alt text](2d_angle.png)
+        ![alt text](./images/API_motion_control/2d_angle.png)
     - 我们还绘制了一张3D图表，将上述关节在三维空间中的运动轨迹描绘出来，让我们能直观地看到机器人的轨迹如何改变的。
-        ![alt text](3d_traj.png)
+        ![alt text](./images/API_motion_control/3d_traj.png)
 
 
 运行结果示例如视频演示：
 
-<video controls src="Isaac Sim 4.5.0 2025-07-03 16-46-43.mp4" title="Title"></video>
+<video controls src="./images/API_motion_control/Isaac Sim 4.5.0 2025-07-03 16-46-43.mp4" title="Title"></video>

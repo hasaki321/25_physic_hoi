@@ -1,4 +1,7 @@
-## 运动控制测试
+## 强化学习运动控制入门 
+
+本节的目标是理解并运行 Isaac Lab 中的强化学习框架，让我们从“手动编程控制”迈向“智能体自主学习”。我们首先从复现官方的人形机器人行走示例入手。
+
 
 ### Simple Locomotion
 我们来参考一下这个 `isaaclab/source/isaaclab_tasks/isaaclab_tasks/direct/humanoid/humanoid_env.py` 来先尝试运行一下简单用例，并理解一个 RL 任务在 Isaac Lab 中是如何被组织和定义的。
@@ -55,15 +58,6 @@
       *   `up_weight: float = 0.1`:
           *   **含义**: “身体垂直”奖励的权重。值越大，机器人越倾向于保持身体（通常是Z轴）竖直向上。
 
-      *   `energy_cost_scale: float = 0.05`:
-          *   **含义**: 能量消耗惩罚的缩放系数。这个惩罚项通常与力矩和速度的平方成正比，模拟真实的能量消耗。值越大，机器人越倾向于用“节能”的方式运动。
-      *   `actions_cost_scale: float = 0.01`:
-          *   **含义**: 动作惩罚的缩放系数。惩罚过大的动作指令（即力矩）。值越大，机器人动作越“温柔”。
-      *   `alive_reward_scale: float = 2.0`:
-          *   **含义**: “存活”奖励的缩放系数。只要机器人没有摔倒，在每个时间步都会获得一个固定的正奖励。值越大，机器人越有动力“活下去”。
-      *   `dof_vel_scale: float = 0.1`:
-          *   **含义**: 关节速度惩罚的缩放系数。惩罚过快的关节运动。值越大，机器人动作越平缓。
-
     - **终止与惩罚（Termination & Cost）**
 
       *   `death_cost: float = -1.0`:
@@ -90,7 +84,7 @@
 ```
 可以看到我们希望运行的环境在这里
 
-![alt text](image-5.png)
+![alt text](./images/Hunamoid_direct/image-5.png)
 
 
 同时我们可以指定使用哪个强化学习库来运行我们的环境，官方提供了以下几种不同的强化学习库
@@ -109,7 +103,7 @@ We provide wrappers to different reinforcement libraries. These wrappers convert
 
 成功运行环境：
 
-![alt text](image-7.png)
+![alt text](./images/Hunamoid_direct/image-7.png)
 
 80 epoch 示例：
 
@@ -193,5 +187,5 @@ cd isaaclab
 ```
 
 权重与日志位于 `src\humanoid\logs`, 最佳reward 值：
-![alt text](image-17.png)
+![alt text](./images/Hunamoid_direct/image-17.png)
 

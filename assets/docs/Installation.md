@@ -1,124 +1,94 @@
+### **实验记录：开发环境安装与配置**
 
-## Basic Task:Install and Get Started with Your Simulator
+#### **1. 目标与背景**
 
-### Install and Launch Your Simulator
-ref: 
-- https://isaac-sim.github.io/IsaacLab/main/index.html
-- https://docs.robotsfan.com/isaaclab/source/setup/installation/pip_installation.html
-- isaac WebRTC 流式转发： https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/manual_livestream_clients.html
+我们的首要任务是搭建用于具身智能研究的仿真开发环境。核心工具是 NVIDIA Isaac Sim 及其配套的强化学习框架 Isaac Lab。Isaac Sim 是一个基于 Omniverse 平台的强大机器人仿真器，它利用了 NVIDIA 的硬件加速能力，为机器人学习提供了逼真的物理模拟和渲染效果。
 
+- **Isaac Sim 文档:**
+    - Isaac Lab 主页: https://isaac-sim.github.io/IsaacLab/main/index.html
+    - Isaac Lab Pip 安装指南: https://docs.robotsfan.com/isaaclab/source/setup/installation/pip_installation.html
+    - Isaac Sim WebRTC 远程访问: https://docs.isaacsim.omniverse.nvidia.com/4.5.0/installation/manual_livestream_clients.html
+- **Omniverse & API 文档:**
+    - Omniverse 平台文档: https://docs.omniverse.nvidia.com/
+    - Isaac Sim API 参考: https://docs.omniverse.nvidia.com/py/isaacsim/index.html
 
-IsaacSim是NVIDIAOmniverse平台的一部分，专门用于模拟和开发机器人应用。它结合了NVIDIA的硬件加速和先进的仿真功能，为开发者提供了一个强大的工具集，尤其在工业场景中如仓储、制造业等具有极大潜力。以下是Isaac Sim官方的学习资料与相关资源总结:
+#### **2. 安装过程与问题解决**
 
-- NVIDIA Omniverse全站文档:https://docs.omniverse.nvidia.com/
-- Isaac Sim开发者文档:https://developer.nvidia.com/isaac/sim
-- Omniverse开发者文档:https://docs.omniverse.nvidia.com/dev-guide/latest/index.html
-- Isaac Lab文档: https://isaac-sim.github.io/IsaacLab/
-- Isaac Sim API 参考文档: https://docs.omniverse.nvidia.com/py/isaacsim/index.html
-- ROS/ROS2 教程:https://docs.omniverse.nvidia.com/isaacsim/latest/ros_ros2_tutorials.html
+我们在多个平台上进行了安装尝试，包括本地服务器、云平台和 Windows。
 
+**实验环境:**
+- **本地服务器:** Ubuntu 22.04, Ryzen R5 5500, 16GB RAM, NVIDIA Tesla P100 (16GB VRAM)
+- **云平台:** 兰州大学超算中心云平台
+- **个人电脑:** Windows 系统
 
+**2.1 初次尝试：源码编译 (官方Pip源失效)**
 
-#### Prev 官方pip源不可用
-环境：
-- 本地服务器
-- Ubuntu 22.04
-- Ryzon R5 5500
-- 16 GB RAM
-- Nvidia Tesla P100 16GB VRAM
+起初，我们发现官方的 pip 源 `https://pypi.nvidia.com/isaacsim/` 无法访问。因此，我们转向了从 Git 仓库直接编译 Isaac Sim 的方案。
 
-Examples 
 ```bash
-git submodule add https://github.com/isaac-sim/isaacsim-app-template.git
-```
-
-Isaac Sim
-```bash
+# 1. 创建并激活Conda环境
 conda create -p ./env_isaaclab python=3.10
 conda activate ./env_isaaclab
 
+# 2. 安装Pytorch
 pip install torch==2.5.1 torchvision==0.20.1
-pip install --upgrade pip
-```
 
-```bash
-pip install --proxy http://127.0.0.1:7890 'isaacsim[all,extscache]==4.5.0' --extra-index-url https://pypi.nvidia.com
-```
-pip 源失效： https://pypi.nvidia.com/isaacsim/
-
-Isaacsim 已经释放了开源git仓库： https://github.com/isaac-sim/IsaacSim；直接从git编译
-```bash
-conda activate ./env_isaaclab
+# 3. 克隆并编译 Isaac Sim
 git clone https://github.com/isaac-sim/IsaacSim.git isaacsim
 cd isaacsim
 git lfs install
 git lfs pull
-
 ./build.sh
-```
 
-Isaac Lab
-https://github.com/isaac-sim/IsaacLab/tree/feature/isaacsim_5_0
-```bash
+# 4. 克隆并配置 Isaac Lab
 git clone -b feature/isaacsim_5_0 https://github.com/isaac-sim/IsaacLab.git isaaclab
 cd isaaclab
-
 ln -s ../isaacsim/_build/linux-x86_64/release _isaac_sim
-
 ./isaaclab.sh -i
 ```
+在尝试运行官方强化学习示例时，我们遇到了报错，如下图所示，初步判断可能与环境或驱动有关。
+![alt text](./images/Installation/sim_fail_0.png)
 
-```
-./isaaclab.sh -p scripts/reinforcement_learning/skrl/train.py --task Isaac-Ant-v0 --headless
-```
-![alt text](./assets/images/sim_fail_0.png)
+**2.2 再次尝试：官方Pip源恢复**
 
+后续我们发现官方 Pip 源恢复了正常，于是我们采用了更便捷的 Pip 安装方式。
 
-#### 7.2 IsaacSim 官方pip源可用
-Isaac Sim
 ```bash
+# 1. 创建并激活Conda环境
 conda create -p ./env_isaaclab python=3.10 -y
 conda activate ./env_isaaclab
 
+# 2. 安装Pytorch (指定CUDA版本)
 pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu118
-pip install --upgrade pip
+
+# 3. 通过Pip安装Isaac Sim
 pip install 'isaacsim[all,extscache]==4.5.0' --extra-index-url https://pypi.nvidia.com
 ```
+然而，使用这种方法后，在运行示例时我们依然遇到了类似的错误。
+![alt text](./images/Installation/sim_fail.png)
 
-Isaac Lab
-https://github.com/isaac-sim/IsaacLab/tree/feature/isaacsim_5_0
-```bash
-git clone -b feature/isaacsim_5_0 https://github.com/isaac-sim/IsaacLab.git isaaclab
-cd isaaclab
+**2.3 云平台部署**
 
-ln -s ../isaacsim/_build/linux-x86_64/release _isaac_sim
+考虑到本地环境的复杂性，我们转向了配置更标准的云平台。我们使用了兰州大学超算中心的云服务器，并重复了上述 Pip 安装步骤。由于云平台不直接开放端口，我们利用 FRP (https://github.com/fatedier/frp) 将仿真环境的 WebRTC 流转发到公网服务器，以便远程查看仿真界面。
 
-./isaaclab.sh -i
-```
-![alt text](./assets/images/sim_fail.png)
+这次，在运行官方教程示例时，我们成功了。下图显示了仿真正常运行的截图。
+![alt text](./images/Installation/turtor_0.png)
 
+**2.4 Windows 平台安装**
 
-#### 使用云平台
-资源来自兰州大学超算中心云平台
+我们也在 Windows 系统上进行了尝试。安装步骤与 Pip 方式基本一致。一个关键的额外步骤是需要启用长路径支持，以避免在安装过程中出现文件路径过长的问题。
 
-按照上述pip步骤安装，云平台不公开端口，我们将使用frp将端口流量转发到我们的公网服务器。
-FRP: https://github.com/fatedier/frp
-
-我们在循环处插入一个语句，看起来成功运行了
-![alt text](./assets/images/turtor_0.png)
-
-#### Windows
-同上pip步骤安装
-Enable long paths： https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=registry#enable-long-paths-in-windows-10-version-1607-and-later
-
-```ps1
+```powershell
+# 在管理员模式下运行PowerShell以启用长路径
 New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
 ```
+安装完成后，我们成功启动了 Isaac Sim，并加载了场景。
 
-看起来是成功加载好了
-![alt text](./assets/images/windows_sim.png)
+![alt text](./images/Installation/windows_sim.png)
 
-```ps1
+初始化 Isaac Lab 环境也顺利完成。
+```powershell
 cd isaaclab
 .\isaaclab.bat -i
 ```
+至此，我们已在多个平台上成功配置了所需的开发环境。

@@ -244,6 +244,9 @@ class env(LeggedRobotCfg.env):
 
 #### **第2步: 修改 `talos_rough_cfg.py` (核心工作)**
 打开新的 `talos_rough_cfg.py` 文件，我们来逐个`class`进行修改。你需要同时打开TALOS的URDF文件作为参考。
+```
+# 'hip_roll_l_joint', 'hip_yaw_l_joint', 'hip_pitch_l_joint', 'knee_pitch_l_joint', 'ankle_pitch_l_joint', 'ankle_roll_l_joint', 'hip_roll_r_joint', 'hip_yaw_r_joint', 'hip_pitch_r_joint', 'knee_pitch_r_joint', 'ankle_pitch_r_joint', 'ankle_roll_r_joint', 'left_joint1', 'shoulder_roll_l_joint', 'left_joint3', 'elbow_l_joint', 'left_joint5', 'left_joint6', 'left_joint7', 'L_index_proximal_joint', 'L_index_intermediate_joint', 'L_middle_proximal_joint', 'L_middle_intermediate_joint', 'L_pinky_proximal_joint', 'L_pinky_intermediate_joint', 'L_ring_proximal_joint', 'L_ring_intermediate_joint', 'L_thumb_proximal_yaw_joint', 'L_thumb_proximal_pitch_joint', 'L_thumb_intermediate_joint', 'L_thumb_distal_joint', 'right_joint1', 'shoulder_roll_r_joint', 'right_joint3', 'elbow_r_joint', 'right_joint5', 'right_joint6', 'right_joint7', 'R_index_proximal_joint', 'R_index_intermediate_joint', 'R_middle_proximal_joint', 'R_middle_intermediate_joint', 'R_pinky_proximal_joint', 'R_pinky_intermediate_joint', 'R_ring_proximal_joint', 'R_ring_intermediate_joint', 'R_thumb_proximal_yaw_joint', 'R_thumb_proximal_pitch_joint', 'R_thumb_intermediate_joint', 'R_thumb_distal_joint'
+```
 
 1.  **修改 `class asset`**:
     *   `file`: 将路径修改为TALOS的URDF文件路径。例如: `'{LEGGED_GYM_ROOT_DIR}/resources/robots/talos/urdf/talos.urdf'`。 (你需要先把TALOS的资产文件放到`resources/robots/`下)。
@@ -288,26 +291,57 @@ class asset( LeggedRobotCfg.asset ):
 然后改成新机器人的命名空间的：
 ```python
 default_joint_angles = {
-           'hip_yaw_l_joint' : 0. ,   
-           'hip_roll_l_joint' : 0,               
-           'hip_pitch_l_joint' : -0.1,         
-           'knee_pitch_l_joint' : 0.3,       
-           'ankle_roll_l_joint' : -0.2,     
-           'hip_yaw_r_joint' : 0. ,   
-           'hip_roll_r_joint' : 0,               
-           'hip_pitch_r_joint' : -0.1,                                               
-           'knee_pitch_r_joint' : 0.3,                                             
-           'ankle_roll_r_joint' : -0.2,                                     
-           # 'torso_joint' : 0., 
-           'l_joint1' : 0., 
-           'shoulder_roll_l_joint' : 0, 
-           'l_joint3' : 0.,
-           'elbow_l_joint'  : 0.,
-           'r_joint1' : 0., 
-           'shoulder_roll_r_joint' : 0, 
-           'r_joint3' : 0.,
-           'elbow_r_joint'  : 0.,
-        }
+        'hip_roll_l_joint':0, 
+        'hip_yaw_l_joint':0, 
+        'hip_pitch_l_joint':-0.1, 
+        'knee_pitch_l_joint':0.3, 
+        'ankle_pitch_l_joint':0, 
+        'ankle_roll_l_joint':-0.2, 
+        'hip_roll_r_joint':0, 
+        'hip_yaw_r_joint':0, 
+        'hip_pitch_r_joint':-0.1, 
+        'knee_pitch_r_joint':0.3, 
+        'ankle_pitch_r_joint':0, 
+        'ankle_roll_r_joint':-0.2, 
+        'left_joint1':0, 
+        'shoulder_roll_l_joint':0, 
+        'left_joint3':0, 
+        'elbow_l_joint':0, 
+        'left_joint5':0, 
+        'left_joint6':0, 
+        'left_joint7':0, 
+        'L_index_proximal_joint':0, 
+        'L_index_intermediate_joint':0, 
+        'L_middle_proximal_joint':0, 
+        'L_middle_intermediate_joint':0, 
+        'L_pinky_proximal_joint':0, 
+        'L_pinky_intermediate_joint':0, 
+        'L_ring_proximal_joint':0, 
+        'L_ring_intermediate_joint':0, 
+        'L_thumb_proximal_yaw_joint':0, 
+        'L_thumb_proximal_pitch_joint':0, 
+        'L_thumb_intermediate_joint':0, 
+        'L_thumb_distal_joint':0, 
+        'right_joint1':0, 
+        'shoulder_roll_r_joint':0, 
+        'right_joint3':0, 
+        'elbow_r_joint':0, 
+        'right_joint5':0, 
+        'right_joint6':0, 
+        'right_joint7':0, 
+        'R_index_proximal_joint':0, 
+        'R_index_intermediate_joint':0, 
+        'R_middle_proximal_joint':0, 
+        'R_middle_intermediate_joint':0, 
+        'R_pinky_proximal_joint':0, 
+        'R_pinky_intermediate_joint':0, 
+        'R_ring_proximal_joint':0, 
+        'R_ring_intermediate_joint':0, 
+        'R_thumb_proximal_yaw_joint':0, 
+        'R_thumb_proximal_pitch_joint':0, 
+        'R_thumb_intermediate_joint':0, 
+        'R_thumb_distal_joint':0
+}
 ```
 
 3.  **修改 `class control`**:
@@ -341,6 +375,113 @@ xhumanoid_damping = H1_damping * sqrt(xhumanoid_stiffness / H1_stiffness)
 这个公式的含义是：阻尼的缩放比例，是刚度缩放比例的平方根。
 
 
+```python
+stiffness = {
+'hip_roll_l_joint':113, 
+'hip_yaw_l_joint':68, 
+'hip_pitch_l_joint':113, 
+'knee_pitch_l_joint':100, 
+'ankle_pitch_l_joint':60, 
+'ankle_roll_l_joint':30, 
+'hip_roll_r_joint':113, 
+'hip_yaw_r_joint':68, 
+'hip_pitch_r_joint':113, 
+'knee_pitch_r_joint':100, 
+'ankle_pitch_r_joint':60, 
+'ankle_roll_r_joint':30, 
+'left_joint1':113, 
+'shoulder_roll_l_joint':150, 
+'left_joint3':83, 
+'elbow_l_joint':122, 
+'left_joint5':150, 
+'left_joint6':150, 
+'left_joint7':150, 
+'L_index_proximal_joint':150, 
+'L_index_intermediate_joint':150, 
+'L_middle_proximal_joint':150, 
+'L_middle_intermediate_joint':150, 
+'L_pinky_proximal_joint':150, 
+'L_pinky_intermediate_joint':150, 
+'L_ring_proximal_joint':150, 
+'L_ring_intermediate_joint':150, 
+'L_thumb_proximal_yaw_joint':150, 
+'L_thumb_proximal_pitch_joint':150, 
+'L_thumb_intermediate_joint':150, 
+'L_thumb_distal_joint':150, 
+'right_joint1':113, 
+'shoulder_roll_r_joint':150, 
+'right_joint3':8., 
+'elbow_r_joint':122, 
+'right_joint5':150, 
+'right_joint6':150, 
+'right_joint7':150, 
+'R_index_proximal_joint':150, 
+'R_index_intermediate_joint':150, 
+'R_middle_proximal_joint':150, 
+'R_middle_intermediate_joint':150, 
+'R_pinky_proximal_joint':150, 
+'R_pinky_intermediate_joint':150, 
+'R_ring_proximal_joint':150, 
+'R_ring_intermediate_joint':150, 
+'R_thumb_proximal_yaw_joint':150, 
+'R_thumb_proximal_pitch_joint':150, 
+'R_thumb_intermediate_joint':150, 
+'R_thumb_distal_joint':150
+}
+
+damping = {
+'hip_roll_l_joint':1.7, 
+'hip_yaw_l_joint':1.3, 
+'hip_pitch_l_joint':1.7, 
+'knee_pitch_l_joint':2.8, 
+'ankle_pitch_l_joint':2.2, 
+'ankle_roll_l_joint':1.7, 
+'hip_roll_r_joint':1.7, 
+'hip_yaw_r_joint':1.3, 
+'hip_pitch_r_joint':1.7, 
+'knee_pitch_r_joint':2.8, 
+'ankle_pitch_r_joint':2.2, 
+'ankle_roll_r_joint':1.7, 
+'left_joint1':1.7, 
+'shoulder_roll_l_joint':2, 
+'left_joint3':1.5, 
+'elbow_l_joint':2.2, 
+'left_joint5':2, 
+'left_joint6':2, 
+'left_joint7':2, 
+'L_index_proximal_joint':2, 
+'L_index_intermediate_joint':2, 
+'L_middle_proximal_joint':2, 
+'L_middle_intermediate_joint':2, 
+'L_pinky_proximal_joint':2, 
+'L_pinky_intermediate_joint':2, 
+'L_ring_proximal_joint':2, 
+'L_ring_intermediate_joint':2, 
+'L_thumb_proximal_yaw_joint':2, 
+'L_thumb_proximal_pitch_joint':2, 
+'L_thumb_intermediate_joint':2, 
+'L_thumb_distal_joint':2, 
+'right_joint1':1.7, 
+'shoulder_roll_r_joint':2, 
+'right_joint3':1.5, 
+'elbow_r_joint':2.2, 
+'right_joint5':2, 
+'right_joint6':2, 
+'right_joint7':2, 
+'R_index_proximal_joint':2, 
+'R_index_intermediate_joint':2, 
+'R_middle_proximal_joint':2, 
+'R_middle_intermediate_joint':2, 
+'R_pinky_proximal_joint':2, 
+'R_pinky_intermediate_joint':2, 
+'R_ring_proximal_joint':2, 
+'R_ring_intermediate_joint':2, 
+'R_thumb_proximal_yaw_joint':2, 
+'R_thumb_proximal_pitch_joint':2, 
+'R_thumb_intermediate_joint':2, 
+'R_thumb_distal_joint':2
+}
+```
 我们根据上述表格来修改一下
 ```python
 stiffness = {
@@ -387,9 +528,15 @@ class env(LeggedRobotCfg.env):
 #### **第4步: 注册你的环境**
 *   打开 `envs/__init__.py` 文件。
 *   在文件的末尾添加一行，来注册你的新配置：
-    ```python
-    from legged_gym.envs.talos.talos_rough_cfg import TalosRoughCfg, TalosRoughCfgPPO
-    ```
+```python
+from legged_gym.envs.xhumanoid.xhumanoid_config import XHumanoidRoughCfg, XHumanoidRoughCfgPPO
+from legged_gym.envs.xhumanoid.xhumanoid_env import XHumanoidRobot
+
+task_registry.register( "xhumanoid", XHumanoidRobot, XHumanoidRoughCfg(), XHumanoidRoughCfgPPO())
+```
+
+def _reward_hip_pos(self):
+        return torch.sum(torch.square(self.dof_pos[:,[0,1,5,6]]), dim=1)
 
 #### **第5步: 修改训练配置**
 *   在 `talos_rough_cfg.py` 文件的末尾，修改 `class H1RoughCfgPPO` 为 `class TalosRoughCfgPPO`。

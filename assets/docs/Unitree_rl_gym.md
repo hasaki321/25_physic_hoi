@@ -1,5 +1,7 @@
 ## Unitree RL Gym
 
+为了更深入地研究四足和双足机器人的运动控制，我们这里复现宇树科技开源的强化学习项目 `unitree_rl_gym`。这个项目基于较早的 `IsaacGym`，但其奖励函数设计和训练方法非常有参考价值。
+
 ### 安装
 
 #### IsaacGym
@@ -39,26 +41,26 @@ python legged_gym/scripts/train.py --task=h1 --headless > ../assets/unitree_rl/u
 ```
 
 训练启动如图：
-![alt text](image-18.png)
+![alt text](./images/Unitree_rl_gym/image-18.png)
 
 在训练 10k 个iteration后，我们取出平均eward最高（24.07）的一个ckpt（9500）来进行效果验证。
 
 #### Windows验证（mujoco）
 在安装Unitree_rl_gym的时候会给我们自动安装一些依赖库，包括 isaacgym, 这里我们只需要安装路径下的 legged_gym 库以及 mujoco 库即可，我们在执行 `pip install -e .` 时把 `setup.py` 中 `install_requires` 下的 `isaacgym` 删除即可。
 
-官方示例:
-运行以下命令会直接运行官方提供的位于 `deploy/pre_train/{robot}/motion.pt`的认模型；
+##### 官方示例:
+项目自带了预训练好的模型，我们首先运行它来观察基线效果。运行以下命令会直接运行官方提供的位于 `deploy/pre_train/{robot}/motion.pt`的认模型；
 ```ps1
 python deploy\deploy_mujoco\deploy_mujoco.py h1.yaml
 ```
-<video controls src="MuJoCo _ h1 scene 2025-07-04 00-25-12.mp4" title="Title"></video>
+<video controls src="./images/Unitree_rl_gym/MuJoCo _ h1 scene 2025-07-04 00-25-12.mp4" title="Title"></video>
 
-训练复现结果：
+##### 训练复现结果：
 我们训练好模型保存于`src\unitree_rl\logs\h1\Jul03_20-09-01_\model_9500.pt`，只需将其换到 yaml 配置文件中 `policy_path` 即可。
 
-<video controls src="MuJoCo _ h1 scene 2025-07-04 00-29-54.mp4" title="Title"></video>
+<video controls src="./images/Unitree_rl_gym/MuJoCo _ h1 scene 2025-07-04 00-29-54.mp4" title="Title"></video>
 
-可以看到我们训练 10k 轮的结果与官方提供的ckpt的表现基本上是一致的。
+从视频中可以看到，我们训练了 10k 轮次的结果，其行走步态和稳定性与官方提供的模型表现基本一致。这证明我们成功复现了该项目的训练流程。
 
 ### 奖励函数解析
 https://zhuanlan.zhihu.com/p/30141963553

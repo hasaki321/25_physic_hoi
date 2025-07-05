@@ -1,86 +1,108 @@
-# Physic HOI Similation
+# 物理人机交互仿真项目 (Physic HOI Simulation)
 
-我将以 **“从零开始，在 Isaac Lab 中实现一个能与环境交互的强化学习智能体”** 为主线，为您精心设计一个由易到难、循序渐进的学习任务清单。这个清单会融合两个文档的所有核心要求，并把它们安排在最符合认知规律的顺序上。
+本项目旨在探索具身智能（Embodied AI）与人机交互（HOI）领域，使用NVIDIA Isaac Lab作为核心仿真与训练平台。项目从基础环境搭建开始，逐步深入到强化学习运动控制，最终目标是实现复杂的人机交互任务。
 
----
-
-### **主线任务：打造你的具身智能交互体 (Embodied Interactive Agent)**
-
-**最终目标：** 独立构建一个完整的强化学习流程，让模拟人形机器人在复杂的场景中，学会执行人机交互（HOI）任务。
-
-#### **阶段一：入门与环境搭建 (Familiarization & Setup)**
-
-**目标：** 成功配置开发环境，熟悉 Isaac Sim/Lab 的基本操作，并能通过代码程序化地搭建和控制一个简单的仿真世界。
-
-*   **[x] 任务 1.1: 环境与工具链安装 (已完成)**
-    *   **子任务:** 成功安装 NVIDIA Isaac Sim 和 Isaac Lab。
-    *   **检验标准:** 能够成功启动 Isaac Sim GUI 界面，并能运行 `isaaclab.sh` 激活 Python 环境。
-
-*   **[x] 任务 1.2: 探索仿真世界 (GUI 手动操作)**
-    *   **子任务 1:** 在 Isaac Sim 中，手动创建一个 `10m x 10m` 的平面（`Create -> Mesh -> Plane`），并为其添加物理碰撞体（`Add -> Physics -> Collider`）。
-    *   **子任务 2:** 从 Content Browser（`omniverse://localhost/Isaac/Robots/Unitree/H1/`）中，手动拖拽一个宇树 H1 机器人到场景中。
-    *   **子任务 3:** 点击 `Play`，观察机器人因重力下落到平面上。部署基础光源和物理材质。
-    *   **学习目的:** 建立对仿真环境、资产（Asset）和物理引擎的直观理解。这是连接抽象代码和具体世界的桥梁。
-
-*   **[-] 任务 1.3: 脚本化你的第一个世界 (Python API 编程)**
-    *   **子任务 1:** 编写一个独立的 Python 脚本，使用 Isaac Lab 的 API 自动完成 **任务 1.2** 的所有内容（创建 10x10 平面，加载 H1 机器人）。
-    *   **子任务 2:** 在脚本中，通过 Python API 控制机器人执行一个基础动作（例如，设置所有关节的目标位置为一个特定姿势）。
-    *   **子任务 3:** 记录并输出机器人从初始姿态到目标姿态过程中，5秒内的关节角度变化数据，并用 `matplotlib` 可视化。
-    *   **学习目的:** 从 GUI 操作过渡到代码驱动，掌握以编程方式构建和控制场景的核心技能。这是后续所有工作的基础。
+我这里让AI给我设计了一个更平滑的的学习任务清单。这个清单会结合文档的所有核心要求，并把它们安排在最符合认知规律的顺序上, 详见 [任务清单](./tasks.md)。
 
 ---
 
-#### **阶段二：强化学习基础与简单运动 (RL Basics & Simple Locomotion)**
+## 任务清单与项目进展
 
-**目标：** 理解并运行 Isaac Lab 的强化学习框架，让机器人在简单的环境中学会一个基本技能——走路。这是从“控制”到“学习”的飞跃。
+以下是本项目的学习与开发路线图，记录了各个阶段的目标和完成情况。
+
+- **[x] 已完成**
+- **[-] 部分完成 / 进行中**
+- **[ ] 未开始**
+
+### **阶段一：入门与环境搭建 (Familiarization & Setup)**
+**目标：** 成功配置开发环境，熟悉Isaac Sim/Lab的基本操作，并能通过代码程序化地搭建和控制一个简单的仿真世界。
+
+*   **[x] 任务 1.1: 环境与工具链安装**
+    *   **实验记录:** [`assets/docs/1_Installation.md`](./assets/docs/Installation.md)
+    *   **简介:** 记录了在不同平台（本地服务器、云平台、Windows）上安装Isaac Sim与Isaac Lab的过程，以及遇到的问题和解决方案。
+    *   **成果展示:**
+        <p align="center">
+          <img src="./assets/docs/images/Installation/windows_sim.png" width="600">
+          <br>
+          <em>Windows平台成功启动Isaac Sim</em>
+        </p>
+
+*   **[x] 任务 1.2: 探索仿真世界 (GUI手动操作)**
+    *   **实验记录:** [`assets/docs/2_Env_Create_And_Test.md`](./assets/docs/Env_Create_And_Test.md)
+    *   **简介:** 通过GUI手动创建了包含平台、障碍物、斜坡的基础场景，并添加了H1机器人、光源和物理材质。
+    *   **成果展示:**
+        <p align="center">
+            <video controls src="./assets/docs/images/Env_create&test/QQ202572-222923.mp4" width="600"></video>
+            <br>
+            <em>手动搭建的场景运行测试</em>
+        </p>
+
+*   **[x] 任务 1.3: 脚本化你的第一个世界 (Python API 编程)**
+    *   **实验记录:** [`assets/docs/3_API_Motion_Control.md`](./assets/docs/API_Motion_Control.md)
+    *   **相关代码:** [`src/python_api/move_unitree.py`](./src/python_api/move_unitree.py)
+    *   **简介:** 使用Isaac Lab的Python API，以编程方式创建了H1机器人环境，并实现了一个简单的PD控制器，驱动机器人完成站立动作。同时记录并可视化了关节角度和运动轨迹。
+    *   **成果展示:**
+        <p align="center">
+          <img src="./assets/docs/images/API_motion_control/3d_traj.png" width="25%">
+          <video controls src="./assets/docs/images/API_motion_control/Isaac Sim 4.5.0 2025-07-03 16-46-43.mp4" width="600"></video>
+          <br>
+          <em>机器人运动控制及数据可视化</em>
+        </p>
+
+---
+### **阶段二：强化学习基础与简单运动 (RL Basics & Locomotion)**
+**目标：** 理解并运行Isaac Lab的强化学习框架，让机器人在简单的环境中学会一个基本技能——走路。
 
 *   **[x] 任务 2.1: 运行并理解官方行走示例**
-    *   **子任务 1:** 找到并运行官方的 `Isaac-Direct-Humanoid-v0` 任务（`python -m isaaclab.train --task ...`）。
-    *   **子任务 2:** **深入阅读** `humanoid_env.py` 和 `config.py`，结合上一封邮件的参数解释，理解以下核心概念：
-        *   **观测空间 (Observation):** AI能“看到”什么？
-        *   **动作空间 (Action):** AI能“做什么”？
-        *   **奖励函数 (Reward):** 如何定义“做得好”？（重点解析速度跟踪、姿态保持、能量消耗等奖励项）
-        *   **终止条件 (Termination):** 什么时候算“失败”？
-    *   **学习目的:** 掌握 Isaac Lab 中一个完整 RL 任务的“八股文”结构，这是后续所有自定义任务的模板。
+    *   **实验记录:** [`assets/docs/4_Humanoid_Direct.md`](./assets/docs/Humanoid_Direct.md)
+    *   **简介:** 成功运行了Isaac Lab官方的`Isaac-Humanoid-Direct-v0`任务，并深入解析了其环境配置、奖励函数和核心参数。
+    *   **相关代码:**
+        *   Humanoid环境配置与实验记录&权重: `src/humanoid`
+    *   **成果展示:**
+        <p align="center">
+            <video controls src="./assets/docs/images/Hunamoid_direct/Isaac Sim 4.5.0 2025-07-02 19-55-27.mp4" width="600"></video>
+            <br>
+            <em>官方Humanoid模型行走训练（80个epoch）</em>
+        </p>
 
 *   **[x] 任务 2.2: 复现并微调宇树 H1 行走**
-    *   **子任务 1:** 参考官方示例和 Unitree 开源项目（`unitree_rl_gym`），创建一个新的环境配置文件，专门用于训练 H1 机器人行走。
-    *   **子任务 2:** **动手实践**：微调奖励函数参数。例如，增加“速度跟踪奖励”的权重，观察机器人是否走得更快；增加“步态对称性惩罚”，观察步态是否更协调。
-    *   **子任务 3:** 尝试在场景中增加简单的障碍物或斜坡，观察预训练的策略是否鲁棒，能否适应新环境。
-    *   **学习目的:** 从“复现”到“微调”，真正内化奖励函数设计的艺术，并开始理解 Sim-to-Real 中重要的“鲁棒性”概念。
+    *   **实验记录(IsaacGym):** [`assets/docs/5_Unitree_RL_Gym.md`](./assets/docs/Unitree_RL_Gym.md)
+    *   **相关代码:**
+        *   Unitree RL Gym复现: `src/unitree_rl/`
+    *   **简介:** 基于官方示例，创建了针对H1机器人的新环境，并成功训练。同时，也在经典的IsaacGym+RSL-RL框架下，复现了Unitree官方的RL训练，并将结果在MuJoCo中进行了验证。
+    *   **成果展示:**
+        <p align="center">
+            <video controls src="./assets/docs/images/Unitree_rl_gym/MuJoCo _ h1 scene 2025-07-04 00-29-54.mp4" width="600"></video>
+            <br>
+            <em>在IsaacGym中训练，MuJoCo中验证的H1行走策略</em>
+        </p>
 
 ---
+### **阶段三：高级运动与人机交互 (Advanced Locomotion & HOI)**
+**目标：** 将学习到的技能应用到更复杂的交互场景中，从简单的locomotion升级到需要与物体交互的HOI任务。
 
-#### **阶段三：高级运动与人机交互 (Advanced Locomotion & HOI)**
+*   **[x] 任务 3.1: 探索前沿运动生成算法 (理论与代码)**
+    *   **实验记录:** [`assets/docs/6_Protomotion.md`](./assets/docs/Protomotion.md)
+    *   **相关代码:** `src/protomotion/` (作为子模块)
+    *   **简介:** (进行中) 成功在Windows上配置并运行了`ProtoMotions`和`MaskedMimic`的预训练模型，解决了`nccl`后端的兼容性问题。目前正在深入理解其代码框架和论文思想。
+    *   **成果展示:**
+        <p align="center">
+            <video controls src="./assets/docs/images/Protomotion/Isaac Sim 4.5.0 2025-07-05 01-21-35.mp4" width="600"></video>
+            <br>
+            <em>成功运行MaskedMimic预训练模型</em>
+        </p>
 
-**目标：** 将学习到的技能应用到更复杂的交互场景中，从简单的 locomotion 升级到需要与物体交互的 HOI 任务。
-
-*   **[-] 任务 3.1: 探索前沿运动生成算法 (理论与代码)**
-    *   **[-] 子任务 1:** 阅读并理解 `ProtoMotions` 项目。Clone 其代码库，并成功运行其提供的 checkpoint，确保能复现其结果。
-    *   **[ ] 子任务 2:** 仔细阅读 `ProtoMotions` 的论文，理解其核心思想：如何将少量运动原型（motion prototypes）组合成多样的动作。
-    *   **学习目的:** 接触 locomotion 领域的前沿研究，理解基于参考动作的模仿学习（Imitation Learning）的基本思路。
-
-*   **[ ] 任务 3.2: 实现一个基础 HOI 任务：推箱子**
-    *   **子任务 1:** 基于 **任务 2.2** 的行走环境，在场景中添加一个可交互的物体（如一个立方体箱子）。
-    *   **子任务 2:** **设计新的奖励函数**：在原有行走奖励的基础上，增加“推动箱子向目标点移动”的奖励项。
-    *   **子任务 3:** 使用 PPO 算法，从头训练一个能推动箱子的策略。
-    *   **学习目的:** 迈出 HOI 的第一步。将环境的复杂性从“与地面交互”扩展到“与物体交互”，并实践如何为此设计新的奖励。
+*   **[-] 任务 3.2: 实现一个基础 HOI 任务：推箱子**
+    *   **实验记录:** [`assets/docs/Protomotion_HOI.md`](./assets/docs/Protomotion_HOI.md) 
+    *   **相关代码:**
+        *   个人fork仓库： `https://github.com/hasaki321/25HOI_ProtoMotions.git`
+        *   环境定义: `src/protomotion/protomotions/envs/box/env.py`
+        *   配置文件: `src/protomotion/protomotions/config/exp/box_mlp.yaml`
+    *   **简介:** (进行中) 基于`ProtoMotions`的框架，设计了一个两阶段的“推箱子”任务。目前已完成环境`PushBoxEnv`的代码编写和Hydra配置文件的创建，正在进行训练与调试。
 
 ---
-
-#### **阶段四：真实数据驱动与自主项目 (Data-Driven Methods & Capstone Project)**
-
-**目标：** 学习使用大规模人体运动数据集来生成更逼真、更复杂的交互动作，并最终独立完成一个完整的 HOI 任务。
+### **阶段四：真实数据驱动与自主项目 (Data-Driven Methods & Capstone Project)**
+**目标：** 学习使用大规模人体运动数据集来生成更逼真、更复杂的交互动作，并最终独立完成一个完整的HOI任务。
 
 *   **[ ] 任务 4.1: 运动数据处理与应用**
-    *   **子任务 1:** 下载 AMASS 数据集，学习其数据结构。
-    *   **子任务 2:** 编写脚本对 AMASS 数据进行预处理：统一帧率、坐标系对齐、移除异常数据等。
-    *   **学习目的:** 掌握处理真实运动捕捉数据的能力，这是高质量模仿学习的基石。
-
 *   **[ ] 任务 4.2: 基于模仿学习的 HOI 任务**
-    *   **子任务 1:** 阅读并理解 `AMP` 和 `MaskedMimic` 的论文和代码。理解它们如何利用对抗训练和数据驱动的方式，让机器人模仿人类动作。
-    *   **子任务 2:** **终极挑战 (Capstone Project):**
-        *   从 AMASS 数据集中筛选出一个你感兴趣的交互动作（例如：捡起一个物体、开门、坐下等）。
-        *   参考 `ProtoMotions`/`AMP`/`MaskedMimic` 的算法思想，**搭建你自己的 HOI 训练流水线**。
-        *   使用你处理好的数据集和选择的算法，训练 H1 机器人在 Isaac Sim 中复现这个交互动作。
-    *   **学习目的:** 融会贯通，独立完成从数据处理、算法选择、环境搭建到最终训练的全流程。这是从学习者到实践者的转变。
