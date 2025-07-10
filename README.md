@@ -78,13 +78,25 @@
         </p>
 
 ---
-### **阶段三：高级运动与人机交互 (Advanced Locomotion & HOI)**
-**目标：** 将学习到的技能应用到更复杂的交互场景中，从简单的locomotion升级到需要与物体交互的HOI任务。
+### **阶段三：鲁棒运动与人机交互 (Advanced Locomotion & HOI)**
+**目标：** 将学习到的技能应用到更复杂的场景中
 
-*   **[x] 任务 3.1: 探索前沿运动生成算法 (理论与代码)**
-    *   **实验记录:** [`assets/docs/6_Protomotion.md`](./assets/docs/Protomotion.md)
+
+*   **[x] 任务 3.1: 强化学习应用迁移**
+    *   **实验记录:** [`assets/docs/6_New_rl_gym.md`](./assets/docs/6_New_rl_gym.md)
+    *   **相关代码:** `unitree_rl_gym/` (作为子模块)
+    *   **简介:** 基于`legged_gym`框架，将官方示例的H1机器人成功替换为天工X-Humanoid机器人。实验过程涵盖了：1) 深入解析URDF文件结构以确定正确的动作空间；2) 完成机器人配置文件的适配，包括关节映射、PD控制器参数（刚度与阻尼）的估算与调试；3) 针对新模型特性，对奖励函数进行细致调整以启动并稳定训练。最终，模型在Isaac Sim中成功训练，并实现了到MuJoCo环境的部署，验证了算法迁移的可行性。
+    *   **成果展示:**
+        <p align="center">
+            <video controls src="./assets/docs/images/New_rl_gym/MuJoCo _ humanoid scene 2025-07-10 02-47-36.mp4" width="600"></video>
+            <br>
+            <em>成功将训练策略从 Isaac Sim 迁移至 MuJoCo，机器人展现出学习到的'螃蟹步'行走策略</em>
+        </p>
+
+*   **[x] 任务 3.2: 探索前沿运动生成算法 (理论与代码)**
+    *   **实验记录:** [`assets/docs/7_Protomotion.md`](./assets/docs/Protomotion.md)
     *   **相关代码:** `src/protomotion/` (作为子模块)
-    *   **简介:** (进行中) 成功在Windows上配置并运行了`ProtoMotions`和`MaskedMimic`的预训练模型，解决了`nccl`后端的兼容性问题。目前正在深入理解其代码框架和论文思想。
+    *   **简介:** 成功在Windows上配置并运行了`ProtoMotions`和`MaskedMimic`的预训练模型，解决了`nccl`后端的兼容性问题。
     *   **成果展示:**
         <p align="center">
             <video controls src="./assets/docs/images/Protomotion/Isaac Sim 4.5.0 2025-07-05 01-21-35.mp4" width="600"></video>
@@ -92,17 +104,17 @@
             <em>成功运行MaskedMimic预训练模型 （./assets/docs/images/Protomotion/Isaac Sim 4.5.0 2025-07-05 01-21-35.mp4）</em>
         </p>
 
-*   **[-] 任务 3.2: 实现一个基础 HOI 任务：推箱子**
-    *   **实验记录:** [`assets/docs/Protomotion_HOI.md`](./assets/docs/Protomotion_HOI.md) 
+*   **[-] 任务 3.3: 实现一个基础 HOI 任务：推箱子**
+    *   **实验记录:** [`assets/docs/8_Protomotion_HOI.md`](./assets/docs/Protomotion_HOI.md) 
     *   **相关代码:**
         *   个人fork仓库： `https://github.com/hasaki321/25HOI_ProtoMotions.git`
         *   环境定义: `src/protomotion/protomotions/envs/box/env.py`
         *   配置文件: `src/protomotion/protomotions/config/exp/box_mlp.yaml`
     *   **简介:** (进行中) 基于`ProtoMotions`的框架，设计了一个两阶段的“推箱子”任务。目前已完成环境`PushBoxEnv`的代码编写和Hydra配置文件的创建，正在进行训练与调试。
 
----
+<!-- ---
 ### **阶段四：真实数据驱动与自主项目 (Data-Driven Methods & Capstone Project)**
 **目标：** 学习使用大规模人体运动数据集来生成更逼真、更复杂的交互动作，并最终独立完成一个完整的HOI任务。
 
 *   **[ ] 任务 4.1: 运动数据处理与应用**
-*   **[ ] 任务 4.2: 基于模仿学习的 HOI 任务**
+*   **[ ] 任务 4.2: 基于模仿学习的 HOI 任务** -->
