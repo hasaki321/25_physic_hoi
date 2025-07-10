@@ -31,10 +31,11 @@
     *   **实验记录:** [`assets/docs/2_Env_Create_And_Test.md`](./assets/docs/Env_Create_And_Test.md)
     *   **简介:** 通过GUI手动创建了包含平台、障碍物、斜坡的基础场景，并添加了H1机器人、光源和物理材质。
     *   **成果展示:**
+    *   [完整视频](http://101.33.245.91:6051/Work/isaaclab/images/Env_create&test/QQ202572-222923.mp4）
         <p align="center">
-            <video controls src="./assets/docs/images/Env_create&test/QQ202572-222923.mp4" width="600"></video>
+            <img src="./assets/docs/images/Env_create&test/QQ202572-222923.gif" alt="手动搭建的场景运行测试" width="600">
             <br>
-            <em>手动搭建的场景运行测试 （./assets/docs/images/Env_create&test/QQ202572-222923.mp4) </em>
+            <em>手动搭建的场景运行测试  </em>
         </p>
 
 *   **[x] 任务 1.3: 脚本化你的第一个世界 (Python API 编程)**
@@ -59,10 +60,11 @@
     *   **相关代码:**
         *   Humanoid环境配置与实验记录&权重: `src/humanoid`
     *   **成果展示:**
+    *   [完整视频](http://101.33.245.91:6051/Work/isaaclab/images/Hunamoid_direct/Isaac%20Sim%204.5.0%202025-07-02%2019-55-27.mp4)
         <p align="center">
-            <video controls src="./assets/docs/images/Hunamoid_direct/Isaac Sim 4.5.0 2025-07-02 19-55-27.mp4" width="600"></video>
+            <img src="./assets/docs/images/Hunamoid_direct/Isaac Sim 4.5.0 2025-07-02 19-55-27.gif" width="600">
             <br>
-            <em>官方Humanoid模型行走训练（80个epoch）（./assets/docs/images/Hunamoid_direct/Isaac Sim 4.5.0 2025-07-02 19-55-27.mp4)</em>
+            <em>官方Humanoid模型行走训练80个epoch</em>
         </p>
 
 *   **[x] 任务 2.2: 复现并微调宇树 H1 行走**
@@ -71,10 +73,11 @@
         *   Unitree RL Gym复现: `src/unitree_rl/`
     *   **简介:** 基于官方示例，创建了针对H1机器人的新环境，并成功训练。同时，也在经典的IsaacGym+RSL-RL框架下，复现了Unitree官方的RL训练，并将结果在MuJoCo中进行了验证。
     *   **成果展示:**
+    *   [完整视频](http://101.33.245.91:6051/Work/isaaclab/images/Unitree_rl_gym/MuJoCo%20_%20h1%20scene%202025-07-04%2000-25-12.mp4）
         <p align="center">
-            <video controls src="./assets/docs/images/Unitree_rl_gym/MuJoCo _ h1 scene 2025-07-04 00-29-54.mp4" width="600"></video>
+            <img src="./assets/docs/images/Unitree_rl_gym/MuJoCo _ h1 scene 2025-07-04 00-29-54.gif" width="600">
             <br>
-            <em>在IsaacGym中训练，MuJoCo中验证的H1行走策略 （./assets/docs/images/Unitree_rl_gym/MuJoCo _ h1 scene 2025-07-04 00-29-54.mp4）</em>
+            <em>在IsaacGym中训练，MuJoCo中验证的H1行走策略 </em>
         </p>
 
 ---
@@ -87,10 +90,11 @@
     *   **相关代码:** `unitree_rl_gym/` (作为子模块)
     *   **简介:** 基于`legged_gym`框架，将官方示例的H1机器人成功替换为天工X-Humanoid机器人。实验过程涵盖了：1) 深入解析URDF文件结构以确定正确的动作空间；2) 完成机器人配置文件的适配，包括关节映射、PD控制器参数（刚度与阻尼）的估算与调试；3) 针对新模型特性，对奖励函数进行细致调整以启动并稳定训练。最终，模型在Isaac Sim中成功训练，并实现了到MuJoCo环境的部署，验证了算法迁移的可行性。
     *   **成果展示:**
+    *   [完整视频](http://101.33.245.91:6051/Work/isaaclab/images/New_rl_gym/MuJoCo%20_%20humanoid%20scene%202025-07-10%2002-47-36.mp4)
         <p align="center">
-            <video controls src="./assets/docs/images/New_rl_gym/MuJoCo _ humanoid scene 2025-07-10 02-47-36.mp4" width="600"></video>
+            <img src="./assets/docs/images/New_rl_gym/MuJoCo _ humanoid scene 2025-07-10 02-47-36.gif" width="600">
             <br>
-            <em>成功将训练策略从 Isaac Sim 迁移至 MuJoCo，机器人展现出学习到的'螃蟹步'行走策略</em>
+            <em>成功将训练策略从 Isaac Sim 迁移至 MuJoCo，机器人展现出学习到的'螃蟹步'行走策略 </em>
         </p>
 
 *   **[x] 任务 3.2: 探索前沿运动生成算法 (理论与代码)**
@@ -98,10 +102,11 @@
     *   **相关代码:** `src/protomotion/` (作为子模块)
     *   **简介:** 成功在Windows上配置并运行了`ProtoMotions`和`MaskedMimic`的预训练模型，解决了`nccl`后端的兼容性问题。
     *   **成果展示:**
+    *    [完整视频](http://101.33.245.91:6051/Work/isaaclab/images/Protomotion/Isaac%20Sim%204.5.0%202025-07-05%2001-21-35.mp4)
         <p align="center">
-            <video controls src="./assets/docs/images/Protomotion/Isaac Sim 4.5.0 2025-07-05 01-21-35.mp4" width="600"></video>
+            <img src="./assets/docs/images/Protomotion/Isaac Sim 4.5.0 2025-07-05 01-21-35.gif" width="600">
             <br>
-            <em>成功运行MaskedMimic预训练模型 （./assets/docs/images/Protomotion/Isaac Sim 4.5.0 2025-07-05 01-21-35.mp4）</em>
+            <em>成功运行MaskedMimic预训练模型</em>
         </p>
 
 *   **[-] 任务 3.3: 实现一个基础 HOI 任务：推箱子**
